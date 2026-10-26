@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 07 - Professional Documents & Word Processing</title>
+    <style>
+        /* ======================================================= */
+        /* CORE STYLES (Light Blue Theme & Enhanced Typography)    */
+        /* ======================================================= */
+        :root { 
+            --bg-color: #e0f2fe; /* Light Blue Background */
+            --primary: #0ea5e9; /* Sky Blue for primary elements */
+            --accent: #e11d48; /* Rose for weak/alerts */
+            --whatsapp: #16a34a; /* Green for strong/success */
+            --text-main: #000000; /* Pure black for high contrast */
+            --text-muted: #334155; /* Darker slate for readability */
+            --panel-bg: rgba(255, 255, 255, 0.95); /* White panels */
+            --gold: #d97706; /* Amber for context */
+            --cyan: #0891b2; /* Cyan for tech/code */
+            --purple: #7e22ce; /* Purple for professional emails */
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; user-select: none; }
+        html { font-size: 16px; } 
+        @media (min-width: 1920px) { html { font-size: 20px; } } 
+        @media (min-width: 2560px) { html { font-size: 26px; } } 
+        @media (min-width: 3800px) { html { font-size: 36px; } }
+        
+        body { background-color: var(--bg-color); color: var(--text-main); overflow: hidden; width: 100vw; height: 100vh; background-image: radial-gradient(circle at center, #f0f9ff 0%, #e0f2fe 100%); }
+        #presentation { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        .slide { position: absolute; width: 94%; max-width: 1650px; height: 88%; opacity: 0; transform: scale(0.95) translateY(20px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); display: flex; flex-direction: column; justify-content: center; pointer-events: none; overflow-y: auto; scrollbar-width: none; }
+        .slide::-webkit-scrollbar { display: none; } 
+        .slide.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+        
+        h1 { font-size: 3.8rem; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 4px 15px rgba(14, 165, 233, 0.2); font-weight: 800; line-height: 1.1;}
+        h2 { font-size: 2.2rem; margin-bottom: 25px; color: var(--text-muted); font-weight: 600; line-height: 1.3;} 
+        p, li { font-size: 1.4rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 15px; }
+        
+        .module-tag { display:inline-block; border: 1px solid var(--cyan); padding: 6px 20px; border-radius: 30px; font-weight: bold; letter-spacing: 1.5px; margin-bottom: 15px; font-size: 1rem; align-self: flex-start; background: rgba(8, 145, 178, 0.1); color: var(--cyan); text-transform: uppercase;}
+
+        .landscape-box { position: relative; width: 100%; height: 50vh; min-height: 400px; max-height: 650px; background: var(--panel-bg); border-radius: 20px; border: 1px solid #cbd5e1; margin-top: 10px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); overflow: visible; flex-shrink: 0; }
+        .desc-box { margin-top: 25px; background: rgba(255, 255, 255, 0.95); border-left: 6px solid var(--primary); padding: 18px 30px; border-radius: 12px; height: auto; font-size: 1.4rem; line-height: 1.6; color: var(--text-main); opacity: 0; transition: opacity 0.5s; z-index: 50; position: relative; overflow: visible; display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.05); font-weight: 600;}
+        
+        /* COMPARISON ZONES */
+        .context-split { display: flex; width: 100%; height: 100%; justify-content: space-around; align-items: stretch; position: relative; padding: 20px; gap: 20px; }
+        .context-zone { flex: 1; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 15px; display: flex; flex-direction: column; padding: 25px; position: relative; transition: all 0.5s; overflow-y: auto; overflow-x: hidden; scrollbar-width: none;}
+        .context-zone::-webkit-scrollbar { display: none; }
+        
+        .context-zone.active-zone { border-style: solid; box-shadow: 0 10px 30px rgba(0,0,0,0.08); background: white; transform: scale(1.02); z-index: 5;}
+        .cz-weak.active-zone { border-color: var(--accent); }
+        .cz-strong.active-zone { border-color: var(--whatsapp); }
+        
+        .cz-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 25px; padding: 10px 25px; border-radius: 30px; z-index: 10; flex-shrink: 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); align-self: center;}
+        .cz-weak .cz-title { background: rgba(225, 29, 72, 0.1); color: var(--accent); border: 1px solid var(--accent); }
+        .cz-strong .cz-title { background: rgba(22, 163, 74, 0.1); color: var(--whatsapp); border: 1px solid var(--whatsapp); }
+
+        /* DOCUMENT MOCKUPS & UI */
+        .doc-mockup { width: 100%; height: 100%; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); opacity: 0; transform: translateY(15px); transition: all 0.5s; }
+        .doc-mockup.show { opacity: 1; transform: translateY(0); }
+        
+        .line-flat { width: 100%; height: 12px; background: #cbd5e1; margin-bottom: 12px; border-radius: 4px; }
+        .line-flat.short { width: 80%; }
+        .line-flat.shorter { width: 60%; }
+
+        .mock-item { opacity: 0; transform: translateX(-30px); transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: none;}
+        .mock-item.show { opacity: 1; transform: translateX(0); display: block;}
+        
+        .mock-h1 { font-size: 2.2rem; font-weight: 900; color: var(--primary); border-bottom: 3px solid #e0f2fe; padding-bottom: 5px; margin-bottom: 10px; }
+        .mock-h2 { font-size: 1.6rem; font-weight: 800; color: #000000; margin-top: 20px; margin-bottom: 8px; }
+        .mock-h3 { font-size: 1.3rem; font-weight: 700; color: #334155; margin-top: 15px; margin-bottom: 5px; font-style: italic;}
+        .mock-p { font-size: 1.1rem; color: #475569; line-height: 1.6; margin-bottom: 10px; }
+        .mock-bullet { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 1.1rem; color: #475569;}
+        .mock-bullet::before { content: "•"; color: var(--whatsapp); font-size: 1.5rem; font-weight: bold;}
+        
+        .tag-h { font-size: 0.8rem; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 2px 8px; border-radius: 6px; vertical-align: middle; margin-left: 15px; color: #0f172a; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
+        .tag-h1 { background: rgba(14, 165, 233, 0.1); border-color: var(--primary); color: var(--primary); }
+        .tag-h2 { background: rgba(217, 119, 6, 0.1); border-color: var(--gold); color: var(--gold); }
+        .tag-h3 { background: rgba(22, 163, 74, 0.1); border-color: var(--whatsapp); color: var(--whatsapp); }
+
+        /* Slide 2 Specifics */
+        .messy-item { opacity: 0; transform: translateX(-20px); transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-bottom: 20px; display: none; }
+        .messy-item.show { opacity: 1; transform: translateX(0); display: block;}
+        #m-1 { font-family: 'Times New Roman', serif; color: blue; font-size: 1.1rem; text-align: left; line-height: 1.1; }
+        #m-2 { font-family: 'Comic Sans MS', cursive, sans-serif; color: #475569; font-size: 0.95rem; text-align: center; line-height: 2; }
+        #m-3 { font-family: 'Courier New', monospace; color: red; font-size: 1.25rem; text-align: right; line-height: 1; }
+
+        .style-panel { display: flex; gap: 10px; margin-bottom: 25px; padding: 12px; background: #f1f5f9; border-radius: 8px; border: 1px dashed #cbd5e1; align-items:center; justify-content: center; opacity: 0; transform: translateY(-20px); transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
+        .style-panel.show { opacity: 1; transform: translateY(0); border-style: solid; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .style-btn { padding: 6px 18px; border-radius: 6px; font-weight: bold; font-size: 0.95rem; background: white; border: 1px solid #cbd5e1; color: #64748b; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
+        .style-btn.active-style { background: var(--whatsapp); color: white; border-color: var(--whatsapp); box-shadow: 0 5px 15px rgba(22, 163, 74, 0.3); transform: scale(1.05);}
+
+        .styled-text-container { display: flex; flex-direction: column; gap: 15px; }
+        .styled-text { font-family: sans-serif; color: #94a3b8; font-size: 1rem; transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); padding: 5px; border-left: 0px solid transparent; background: transparent; border-radius: 4px; opacity: 0;}
+        .styled-text.visible { opacity: 1; }
+        .styled-text.applied { font-family: 'Segoe UI', system-ui, sans-serif; color: #0f172a; font-size: 1.15rem; line-height: 1.6; text-align: justify; border-left: 5px solid var(--whatsapp); padding-left: 15px; background: rgba(22, 163, 74, 0.05); }
+
+    </style>
+</head>
+<body>
+
+    <div id="presentation" onclick="nextSlide()">
+        
+        <!-- SLIDE 0: TITLE SLIDE -->
+        <section class="slide active" id="slide-0" style="align-items: center; text-align: center; justify-content: center;">
+            <div style="max-width: 1100px; width: 100%;">
+                <h2 style="color: var(--accent); font-size: 1.6rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">Foundation Diploma in ICT</h2>
+                <h1 style="font-size: 4.5rem; margin-bottom: 5px; color: var(--primary);">Module 07</h1>
+                <p style="font-size: 2.4rem; color: var(--text-main); font-weight: 900; margin-bottom: 30px; letter-spacing: -0.5px;">Professional Documents & Word Processing</p>
+
+                <div id="module-list" style="background: white; border: 1px solid #cbd5e1; border-radius: 20px; padding: 25px 35px; text-align: left; margin-bottom: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.05);">
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="font-size: 1.5rem; margin-bottom: 12px; color: #000; font-weight: 800; display: flex; align-items: center; gap: 18px; background: rgba(14, 165, 233, 0.05); padding: 12px 15px; border-radius: 12px; border: 2px solid var(--primary); transform: scale(1.02); box-shadow: 0 5px 15px rgba(14, 165, 233, 0.1);">
+                            <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 8px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 0 10px rgba(14, 165, 233, 0.4);">7.1</span> 
+                            Document structure, formatting and styles
+                        </li>
+                        <li style="font-size: 1.35rem; margin-bottom: 12px; color: #000; font-weight: 700; display: flex; align-items: center; gap: 18px;"><span style="background: #f1f5f9; color: var(--text-muted); padding: 4px 12px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 1px solid #e2e8f0;">7.2</span> CVs, letters, reports and templates</li>
+                        <li style="font-size: 1.35rem; margin-bottom: 12px; color: #000; font-weight: 700; display: flex; align-items: center; gap: 18px;"><span style="background: #f1f5f9; color: var(--text-muted); padding: 4px 12px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 1px solid #e2e8f0;">7.3</span> Tables, images, headers/footers and references</li>
+                        <li style="font-size: 1.35rem; margin-bottom: 0; color: #000; font-weight: 700; display: flex; align-items: center; gap: 18px;"><span style="background: #f1f5f9; color: var(--text-muted); padding: 4px 12px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 1px solid #e2e8f0;">7.4</span> Collaboration, comments, versioning and AI assisted drafting</li>
+                    </ul>
+                </div>
+
+                <div id="profile-box" style="display: inline-flex; align-items: center; justify-content: center; gap: 25px; background: white; padding: 18px 40px; border-radius: 20px; border-left: 6px solid var(--gold); text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative;">
+                    <div style="width: 85px; height: 85px; border-radius: 15px; border: 3px solid var(--gold); flex-shrink: 0; background-color: #f1f5f9; background-image: url('./image_8ca44b.png'); background-size: cover; background-position: center; box-shadow: 0 5px 15px rgba(217, 119, 6, 0.2);"></div>
+                    <div>
+                        <p style="font-size: 0.95rem; color: var(--gold); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800;">Lecturer</p>
+                        <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 5px; font-weight: 800;">Himanka Dodangoda</h3>
+                        <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">MSc in AI (Reading) | MBA | BSc (Hons) in Software Eng. (UK)</p>
+                        <p style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0; font-weight: 800;">SLQF 10 | SCQF 7, 8, 9</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 1: 7.1 Document Structure & Hierarchy -->
+        <section class="slide" id="slide-1">
+            <div class="module-tag" style="background:rgba(14, 165, 233, 0.1); border-color: var(--primary); color: var(--primary);">7.1 DOCUMENT STRUCTURE</div>
+            <h1 style="color: var(--primary);">The Power of Hierarchy</h1>
+            <h2>How Heading Levels (H1, H2, H3) organize your thoughts.</h2>
+            
+            <div class="landscape-box" style="border-color: var(--primary);">
+                <div class="context-split">
+                    <div class="context-zone cz-weak" id="s1-weak">
+                        <div class="cz-title">⚠️ The Wall of Text</div>
+                        <div class="doc-mockup" id="doc-bad">
+                            <div class="line-flat"></div><div class="line-flat"></div><div class="line-flat short"></div><br>
+                            <div class="line-flat"></div><div class="line-flat"></div><div class="line-flat"></div><div class="line-flat short"></div><br>
+                            <div class="line-flat"></div><div class="line-flat shorter"></div>
+                            <div style="margin-top:40px; font-weight:bold; color:var(--accent); font-size:1.2rem; text-align:center;">Everything looks exactly the same.<br>Where does the topic start?</div>
+                        </div>
+                    </div>
+                    <div class="context-zone cz-strong" id="s1-strong">
+                        <div class="cz-title">✅ Structured Hierarchy</div>
+                        <div class="doc-mockup" id="doc-good" style="padding-top:15px;">
+                            <div class="mock-item" id="item-h1">
+                                <div class="mock-h1">1. Word Processing <span class="tag-h tag-h1">Heading 1</span></div>
+                                <div class="mock-p">Software used to create, edit, and format professional text documents.</div>
+                            </div>
+                            <div class="mock-item" id="item-h2">
+                                <div class="mock-h2">1.1 Formatting Rules <span class="tag-h tag-h2">Heading 2</span></div>
+                                <div class="mock-p">Rules ensuring consistency in fonts, spacing, and overall layout.</div>
+                            </div>
+                            <div class="mock-item" id="item-h3">
+                                <div class="mock-h3">1.1.1 Font Selection <span class="tag-h tag-h3">Heading 3</span></div>
+                                <div class="mock-p">Use professional fonts like Arial or Times New Roman for business reports.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="desc-box" id="s1-desc" style="border-left-color: var(--primary);">Click to see what happens when a document lacks structure...</div>
+        </section>
+
+        <!-- SLIDE 2: 7.1 Formatting and Styles -->
+        <section class="slide" id="slide-2">
+            <div class="module-tag" style="background:rgba(22, 163, 74, 0.1); border-color: var(--whatsapp); color: var(--whatsapp);">7.1 FORMATTING & STYLES</div>
+            <h1 style="color: var(--whatsapp);">Global Design Changes</h1>
+            <h2>Ensuring consistency in fonts, spacing, and alignment.</h2>
+            
+            <div class="landscape-box" style="border-color: var(--whatsapp);">
+                <div class="context-split">
+                    <div class="context-zone cz-weak" id="s2-weak">
+                        <div class="cz-title">⚠️ Manual Formatting</div>
+                        <div class="doc-mockup" id="doc-bad-style">
+                            <div class="messy-item" id="m-1">You start writing and manually change this text to Times New Roman, make it blue, and align it left.</div>
+                            <div class="messy-item" id="m-2">Then for the next part, you accidentally select Comic Sans, center alignment, and huge line spacing!</div>
+                            <div class="messy-item" id="m-3">By page 3, you are using red Courier New. The document looks completely unprofessional.</div>
+                        </div>
+                    </div>
+                    <div class="context-zone cz-strong" id="s2-strong">
+                        <div class="cz-title">✅ Using "Styles"</div>
+                        <div class="doc-mockup" id="doc-good-style" style="padding-top:15px;">
+                            <div class="style-panel" id="style-panel">
+                                <div class="style-btn" id="btn-normal">"Body Text" Style Rules</div>
+                                <span style="color:#cbd5e1; font-weight:bold;">➔</span>
+                                <div class="style-btn" id="btn-apply">Apply to All</div>
+                            </div>
+                            <div class="styled-text-container">
+                                <div class="styled-text" id="st-1">Instead of formatting word by word, you create a rule.</div>
+                                <div class="styled-text" id="st-2">You tell the Word Processor: "Make all Body Text look like this."</div>
+                                <div class="styled-text" id="st-3">When you update the style, the entire document instantly obeys.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="desc-box" id="s2-desc" style="border-left-color: var(--whatsapp);">Click to see how manual formatting ruins a document...</div>
+        </section>
+
+        <!-- SLIDE 3: Document 1 - Business Report -->
+        <section class="slide" id="slide-3">
+            <div class="module-tag" style="background:rgba(8, 145, 178, 0.1); border-color: var(--cyan); color: var(--cyan);">7.1 CASE STUDY 1</div>
+            <h1 style="color: var(--cyan);">The Business Report</h1>
+            <h2>Structuring heavy data for executives.</h2>
+            
+            <div class="landscape-box" style="border-color: var(--cyan);">
+                <div class="context-split">
+                    <div class="context-zone cz-weak" id="s3-weak">
+                        <div class="cz-title">⚠️ Not Added</div>
+                        <div class="doc-mockup" id="doc-bad-s3">
+                            <p style="font-size:1.1rem; color:#475569; line-height:1.6;">Q3 Financial Results The company achieved a 15% growth in revenue this quarter. Most of this was driven by the new software division. Operating Costs However, operating costs also increased by 5% due to marketing expenses. We need to reduce these costs in Q4.</p>
+                        </div>
+                    </div>
+                    <div class="context-zone cz-strong" id="s3-strong">
+                        <div class="cz-title">✅ Carefully Added</div>
+                        <div class="doc-mockup" id="doc-good-s3">
+                            <h1 class="mock-h1" style="color:var(--cyan); border-bottom-color:var(--cyan); margin-bottom:5px;">Q3 Financial Results</h1>
+                            <p class="mock-p" style="margin-bottom:15px;">The company achieved a <b>15% growth</b> in revenue this quarter, primarily driven by the new software division.</p>
+                            <h2 class="mock-h2" style="margin-top:0;">Operating Costs</h2>
+                            <p class="mock-p">Costs increased by 5% due to marketing expenses. <span style="color:var(--accent); font-weight:bold;">Action Required:</span> Reduce costs in Q4.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="desc-box" id="s3-desc" style="border-left-color: var(--cyan);">Click to compare...</div>
+        </section>
+
+        <!-- SLIDE 4: Document 2 - Meeting Agenda -->
+        <section class="slide" id="slide-4">
+            <div class="module-tag" style="background:rgba(217, 119, 6, 0.1); border-color: var(--gold); color: var(--gold);">7.1 CASE STUDY 2</div>
+            <h1 style="color: var(--gold);">The Meeting Agenda</h1>
+            <h2>Transforming run-on text into actionable lists.</h2>
+            
+            <div class="landscape-box" style="border-color: var(--gold);">
+                <div class="context-split">
+                    <div class="context-zone cz-weak" id="s4-weak">
+                        <div class="cz-title">⚠️ Not Added</div>
+                        <div class="doc-mockup" id="doc-bad-s4">
+                            <p style="font-size:1.1rem; color:#475569; line-height:1.6;">At 9:00 AM we will discuss the project kickoff. Then at 9:30 AM we will assign roles and responsibilities. Finally, at 10:00 AM we will have a Q&A session.</p>
+                        </div>
+                    </div>
+                    <div class="context-zone cz-strong" id="s4-strong">
+                        <div class="cz-title">✅ Carefully Added</div>
+                        <div class="doc-mockup" id="doc-good-s4">
+                            <h1 class="mock-h1" style="color:var(--gold); border-bottom-color:var(--gold); font-size:1.8rem;">Weekly Team Meeting</h1>
+                            <div class="mock-bullet"><b>09:00 AM:</b> Project Kickoff Discussion</div>
+                            <div class="mock-bullet"><b>09:30 AM:</b> Role & Responsibility Assignment</div>
+                            <div class="mock-bullet"><b>10:00 AM:</b> Open Q&A Session</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="desc-box" id="s4-desc" style="border-left-color: var(--gold);">Click to compare...</div>
+        </section>
+
+        <!-- SLIDE 5: Document 3 - Academic Essay -->
+        <section class="slide" id="slide-5">
+            <div class="module-tag" style="background:rgba(126, 34, 206, 0.1); border-color: var(--purple); color: var(--purple);">7.1 CASE STUDY 3</div>
+            <h1 style="color: var(--purple);">The Academic Essay</h1>
+            <h2>Applying rigorous, consistent styling rules.</h2>
+            
+            <div class="landscape-box" style="border-color: var(--purple);">
+                <div class="context-split">
+                    <div class="context-zone cz-weak" id="s5-weak">
+                        <div class="cz-title">⚠️ Not Added</div>
+                        <div class="doc-mockup" id="doc-bad-s5">
+                            <p style="font-family:'Courier New', monospace; font-size:1rem; text-align:right;">The impact of AI on modern society.</p>
+                            <p style="font-family:'Comic Sans MS', cursive; font-size:0.9rem; line-height:1;">Artificial intelligence is changing the way we work. It automates tasks and improves efficiency.</p>
+                        </div>
+                    </div>
+                    <div class="context-zone cz-strong" id="s5-strong">
+                        <div class="cz-title">✅ Carefully Added</div>
+                        <div class="doc-mockup" id="doc-good-s5" style="font-family:'Times New Roman', serif;">
+                            <h1 style="text-align:center; font-size:1.5rem; margin-bottom:20px; color:#000;">The Impact of AI on Modern Society</h1>
+                            <p style="text-align:justify; line-height:2; font-size:1.1rem; text-indent:30px; color:#000;">Artificial intelligence is rapidly changing the way modern industries operate. By automating repetitive tasks, organizations can significantly improve their overall efficiency and resource management.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="desc-box" id="s5-desc" style="border-left-color: var(--purple);">Click to compare...</div>
+        </section>
+
+        <!-- SLIDE 6: Document 4 - Project Proposal -->
+        <section class="slide" id="slide-6">
+            <div class="module-tag" style="background:rgba(225, 29, 72, 0.1); border-color: var(--accent); color: var(--accent);">7.1 CASE STUDY 4</div>
+            <h1 style="color: var(--accent);">The Project Proposal</h1>
+            <h2>Guiding the reader through complex arguments.</h2>
+            
+            <div class="landscape-box" style="border-color: var(--accent);">
+                <div class="context-split">
+                    <div class="context-zone cz-weak" id="s6-weak">
+                        <div class="cz-title">⚠️ Not Added</div>
+                        <div class="doc-mockup" id="doc-bad-s6">
+                            <p style="font-size:1.1rem; color:#000; line-height:1.4;"><b>OUR GOAL IS TO BUILD A NEW APP.</b> <u>We need $50,000 for this.</u> <i>The timeline is 6 months.</i> PLEASE APPROVE THIS AS SOON AS POSSIBLE!!!</p>
+                        </div>
+                    </div>
+                    <div class="context-zone cz-strong" id="s6-strong">
+                        <div class="cz-title">✅ Carefully Added</div>
+                        <div class="doc-mockup" id="doc-good-s6">
+                            <h2 class="mock-h2" style="color:var(--accent); margin-top:0;">Project Overview</h2>
+                            <p class="mock-p">The objective is to develop a mobile application to streamline customer orders.</p>
+                            
+                            <table style="width:100%; margin-top:15px; border-collapse:collapse; text-align:left;">
+                                <tr style="border-bottom:2px solid #cbd5e1;"><th style="padding:5px;">Requirement</th><th style="padding:5px;">Detail</th></tr>
+                                <tr><td style="padding:5px; font-weight:bold;">Budget</td><td style="padding:5px;">$50,000</td></tr>
+                                <tr><td style="padding:5px; font-weight:bold;">Timeline</td><td style="padding:5px;">6 Months</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="desc-box" id="s6-desc" style="border-left-color: var(--accent);">Click to compare...</div>
+        </section>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        let isAnimating = false;
+        const sleepGlobal = ms => new Promise(r => setTimeout(r, ms));
+
+        // Data Arrays
+        let s1Step = -1;
+        const s1Data = [
+            { txt: "❌ <b style='color:var(--accent);'>The Problem:</b> Without formatting, your document is a 'wall of text'. Readers can't scan it." },
+            { txt: "✅ <b style='color:var(--primary);'>Heading 1 (H1):</b> The main title or chapter. It defines the core subject." },
+            { txt: "✅ <b style='color:var(--gold);'>Heading 2 (H2):</b> The major sub-sections. It breaks down the H1 topic." },
+            { txt: "✅ <b style='color:var(--whatsapp);'>Heading 3 (H3):</b> The deep details. H3 organizes specific points inside an H2 section." }
+        ];
+
+        let s2Step = -1;
+        const s2Data = [
+            { txt: "❌ <b style='color:var(--accent);'>Manual Formatting:</b> Imagine formatting each paragraph by hand. You pick a font and color for the first one..." },
+            { txt: "❌ <b style='color:var(--accent);'>The Inconsistency:</b> Then you format the next one, but accidentally choose a different font, size, and alignment." },
+            { txt: "❌ <b style='color:var(--accent);'>The Chaos:</b> By the third paragraph, your document looks like a ransom note. Manual formatting is slow and error-prone." },
+            { txt: "✅ <b style='color:var(--whatsapp);'>The Solution:</b> Let's look at a better way. Here is your raw, unformatted text." },
+            { txt: "✅ <b style='color:var(--whatsapp);'>Adding a Style Box:</b> You define a 'Style' (a saved set of rules like Arial, 12pt, Justified) and add it to your panel." },
+            { txt: "⚡ <b style='color:var(--whatsapp);'>Global Update:</b> With one click, the Style is applied to ALL paragraphs simultaneously. Perfect consistency, zero effort!" }
+        ];
+
+        let s3Step = -1; const s3Data = [
+            { txt: "❌ <b style='color:var(--accent);'>Not Added:</b> A solid block of text hides the critical data. Executives won't read this." },
+            { txt: "✅ <b style='color:var(--cyan);'>Carefully Added:</b> Using H1/H2 styles and bolding key metrics instantly highlights what matters." }
+        ];
+
+        let s4Step = -1; const s4Data = [
+            { txt: "❌ <b style='color:var(--accent);'>Not Added:</b> Writing an agenda as a paragraph makes it impossible to quickly reference during a meeting." },
+            { txt: "✅ <b style='color:var(--gold);'>Carefully Added:</b> Bullet points and bolded times create a structured, scannable timeline." }
+        ];
+
+        let s5Step = -1; const s5Data = [
+            { txt: "❌ <b style='color:var(--accent);'>Not Added:</b> Mixing informal fonts and random alignments ruins academic credibility." },
+            { txt: "✅ <b style='color:var(--purple);'>Carefully Added:</b> A globally applied 'Formal Style' (Times New Roman, Double Spaced) ensures academic standards." }
+        ];
+
+        let s6Step = -1; const s6Data = [
+            { txt: "❌ <b style='color:var(--accent);'>Not Added:</b> Using ALL CAPS, underline, and random italics looks like shouting and creates visual fatigue." },
+            { txt: "✅ <b style='color:var(--whatsapp);'>Carefully Added:</b> Using a clean Markdown-style table and proper headings looks highly professional." }
+        ];
+
+
+        // SLIDE MANAGER
+        function updateSlides() {
+            slides.forEach((slide, index) => { 
+                if (index === currentSlide) slide.classList.add('active'); 
+                else slide.classList.remove('active'); 
+            });
+
+            if (currentSlide === 1) { 
+                s1Step = -1; isAnimating = false; 
+                document.getElementById('s1-weak').classList.remove('active-zone'); document.getElementById('s1-strong').classList.remove('active-zone'); document.getElementById('doc-bad').classList.remove('show'); document.getElementById('doc-good').classList.remove('show'); document.getElementById('item-h1').classList.remove('show'); document.getElementById('item-h2').classList.remove('show'); document.getElementById('item-h3').classList.remove('show'); document.getElementById('s1-desc').innerHTML = "Click to see what happens when a document lacks structure..."; 
+            }
+            if (currentSlide === 2) { 
+                s2Step = -1; isAnimating = false; 
+                document.getElementById('s2-weak').classList.remove('active-zone'); document.getElementById('s2-strong').classList.remove('active-zone'); document.getElementById('doc-bad-style').classList.remove('show'); document.getElementById('doc-good-style').classList.remove('show'); document.getElementById('m-1').classList.remove('show'); document.getElementById('m-2').classList.remove('show'); document.getElementById('m-3').classList.remove('show'); document.getElementById('style-panel').classList.remove('show'); document.getElementById('btn-apply').classList.remove('active-style'); document.getElementById('st-1').classList.remove('visible', 'applied'); document.getElementById('st-2').classList.remove('visible', 'applied'); document.getElementById('st-3').classList.remove('visible', 'applied'); document.getElementById('s2-desc').innerHTML = "Click to see how manual formatting ruins a document..."; 
+            }
+            
+            // Reset generic cases
+            ['s3', 's4', 's5', 's6'].forEach((prefix, i) => {
+                if (currentSlide === (i + 3)) {
+                    if(prefix==='s3') s3Step = -1; if(prefix==='s4') s4Step = -1; if(prefix==='s5') s5Step = -1; if(prefix==='s6') s6Step = -1;
+                    isAnimating = false;
+                    document.getElementById(prefix + '-weak').classList.remove('active-zone');
+                    document.getElementById(prefix + '-strong').classList.remove('active-zone');
+                    document.getElementById('doc-bad-' + prefix).classList.remove('show');
+                    document.getElementById('doc-good-' + prefix).classList.remove('show');
+                    document.getElementById(prefix + '-desc').innerHTML = "Click to compare...";
+                }
+            });
+        }
+
+        // ANIMATION FUNCTIONS
+        async function runStructureStep() { 
+            if (isAnimating) return; isAnimating = true; s1Step++; const desc = document.getElementById('s1-desc'); 
+            if (s1Step === 0) { document.getElementById('s1-weak').classList.add('active-zone'); await sleepGlobal(200); document.getElementById('doc-bad').classList.add('show');
+            } else if (s1Step === 1) { document.getElementById('s1-weak').classList.remove('active-zone'); document.getElementById('s1-strong').classList.add('active-zone'); document.getElementById('doc-good').classList.add('show'); await sleepGlobal(400); document.getElementById('item-h1').classList.add('show');
+            } else if (s1Step === 2) { document.getElementById('item-h2').classList.add('show');
+            } else if (s1Step === 3) { document.getElementById('item-h3').classList.add('show'); }
+            desc.style.opacity = 0; setTimeout(() => { desc.innerHTML = s1Data[s1Step].txt; desc.style.opacity = 1; isAnimating = false; }, 300); 
+        }
+
+        async function runStyleStep() {
+            if (isAnimating) return; isAnimating = true; s2Step++; const desc = document.getElementById('s2-desc'); 
+            if (s2Step === 0) { document.getElementById('s2-weak').classList.add('active-zone'); document.getElementById('doc-bad-style').classList.add('show'); await sleepGlobal(300); document.getElementById('m-1').classList.add('show');
+            } else if (s2Step === 1) { document.getElementById('m-2').classList.add('show');
+            } else if (s2Step === 2) { document.getElementById('m-3').classList.add('show');
+            } else if (s2Step === 3) { document.getElementById('s2-weak').classList.remove('active-zone'); document.getElementById('s2-strong').classList.add('active-zone'); document.getElementById('doc-good-style').classList.add('show'); await sleepGlobal(400); document.getElementById('st-1').classList.add('visible'); document.getElementById('st-2').classList.add('visible'); document.getElementById('st-3').classList.add('visible');
+            } else if (s2Step === 4) { document.getElementById('style-panel').classList.add('show');
+            } else if (s2Step === 5) { document.getElementById('btn-apply').classList.add('active-style'); await sleepGlobal(400); document.getElementById('st-1').classList.add('applied'); document.getElementById('st-2').classList.add('applied'); document.getElementById('st-3').classList.add('applied'); }
+            desc.style.opacity = 0; setTimeout(() => { desc.innerHTML = s2Data[s2Step].txt; desc.style.opacity = 1; isAnimating = false; }, 300); 
+        }
+
+        async function runCaseStep(prefix) {
+            if (isAnimating) return; isAnimating = true;
+            let step, data;
+            if(prefix==='s3'){ s3Step++; step=s3Step; data=s3Data; }
+            if(prefix==='s4'){ s4Step++; step=s4Step; data=s4Data; }
+            if(prefix==='s5'){ s5Step++; step=s5Step; data=s5Data; }
+            if(prefix==='s6'){ s6Step++; step=s6Step; data=s6Data; }
+
+            const desc = document.getElementById(prefix + '-desc');
+
+            if (step === 0) {
+                document.getElementById(prefix + '-weak').classList.add('active-zone');
+                await sleepGlobal(200); document.getElementById('doc-bad-' + prefix).classList.add('show');
+            } else if (step === 1) {
+                document.getElementById(prefix + '-weak').classList.remove('active-zone');
+                document.getElementById(prefix + '-strong').classList.add('active-zone');
+                await sleepGlobal(300);
+                document.getElementById('doc-good-' + prefix).classList.add('show');
+            }
+
+            desc.style.opacity = 0;
+            setTimeout(() => { desc.innerHTML = data[step].txt; desc.style.opacity = 1; isAnimating = false; }, 300);
+        }
+
+        // NAVIGATION CONTROLLER
+        function nextSlide() {
+            if (isAnimating) return;
+            if (currentSlide === 1 && s1Step < s1Data.length - 1) { runStructureStep(); return; }
+            if (currentSlide === 2 && s2Step < s2Data.length - 1) { runStyleStep(); return; }
+            if (currentSlide === 3 && s3Step < s3Data.length - 1) { runCaseStep('s3'); return; }
+            if (currentSlide === 4 && s4Step < s4Data.length - 1) { runCaseStep('s4'); return; }
+            if (currentSlide === 5 && s5Step < s5Data.length - 1) { runCaseStep('s5'); return; }
+            if (currentSlide === 6 && s6Step < s6Data.length - 1) { runCaseStep('s6'); return; }
+            
+            if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); }
+        }
+
+        function prevSlide() { 
+            if (isAnimating) return;
+            if (currentSlide > 0) { currentSlide--; updateSlides(); } 
+        }
+
+        document.addEventListener('keydown', (e) => { 
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide(); 
+            else if (e.key === 'ArrowLeft') prevSlide(); 
+        });
+        
+        // Initialize
+        updateSlides();
+    </script>
+</body>
+</html>
